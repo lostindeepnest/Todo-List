@@ -14,7 +14,7 @@ const FILES = [
     "./icons/design-two/icon-192.png",
 
     "./fonts/DMMono-Regular.ttf",
-    "./fonts/SpaceMono-Bolditalic.ttf",
+    // "./fonts/SpaceMono-Bolditalic.ttf",
     "./fonts/SpaceMono-Italic.ttf"
 ];
 
