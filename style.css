@@ -34,7 +34,7 @@
 }
 
 html{
-    background-color: var(--body-background);
+    background: var(--body-background);
     overscroll-behavior-y: none;
 }
 
