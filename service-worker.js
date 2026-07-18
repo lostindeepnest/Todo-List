@@ -8,8 +8,10 @@ const FILES = [
     "./check-tick.svg",
 
     "./icons/duotone-checkmark-v6-large.svg",
-    "./icons/icon-192.png",
-    "./icons/icon-512.png",
+    "./icons/design-one/icon-192.png",
+    "./icons/design-one/icon-512.png",
+    "./icons/design-two/icon-512.png",
+    "./icons/design-two/icon-192.png",
 
     "./fonts/DMMono-Regular.ttf",
     "./fonts/SpaceMono-Bolditalic.ttf",
