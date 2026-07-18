@@ -33,6 +33,11 @@
     font-family: 'dm-mono-regular';
 }
 
+html{
+    background-color: var(--body-background);
+    overscroll-behavior-y: none;
+}
+
 body{
     background-color: var(--body-background);
     font-family: 'dm-mono-regular';
