@@ -1,6 +1,6 @@
 {
     "name": "Todo List",
-    "short_name": "Todo",
+    "short_name": "Todo List",
     "description": "A simple offline todo app",
     "start_url": "./",
     "scope": "./",
