@@ -41,7 +41,7 @@ html{
 body{
     background-color: var(--body-background);
     font-family: 'dm-mono-regular';
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     justify-content: center;
 }
