@@ -12,6 +12,17 @@ function saveToLocalStorage(){
     localStorage.setItem('taskData', JSON.stringify(userData))
 }
 
+function resizeTasks(){
+    const allTasksText = document.querySelectorAll('.task-text')
+    allTasksText.forEach( taskText => {
+        taskText.style.height = "auto"
+        taskText.style.height = (taskText.scrollHeight) + 'px'
+    })
+}
+
+window.addEventListener('load', resizeTasks)
+window.addEventListener('resize', resizeTasks)
+
 
 
 function renderTasks(){
@@ -31,9 +42,7 @@ function renderTasks(){
 
                 <input type="checkbox" class="task-checkbox" aria-label="task-checkbox" ${status}>
                 <div class='task-text-container'>
-                    <span class="task-text ${taskDone}">
-                        ${task.text}
-                    </span>
+                    <textarea class="task-text ${taskDone}" rows="1" readonly>${task.text}</textarea>
                 </div>
                 <button class="delete-btn" aria-label="delete-task">
                     <svg viewBox = "0 0 28 28">
@@ -61,6 +70,12 @@ function renderTasks(){
             </li>`
     })
 
+    const allTasksText = document.querySelectorAll('.task-text')
+    allTasksText.forEach( taskText => {
+        taskText.style.height = "auto"
+        taskText.style.height = (taskText.scrollHeight) + 'px'
+    })
+
     if(userData.length === 0){
         taskList.innerHTML = `<p id="no-tasks">No tasks</p>`
         taskList.classList.add('task-list-no-tasks')
@@ -71,6 +86,7 @@ function renderTasks(){
 
 }
 renderTasks()
+
 
 let currentId = JSON.parse(localStorage.getItem('currentId')) || 0
 
@@ -123,7 +139,6 @@ taskInput.addEventListener('keydown', (e) => {
 
 
 
-
 document.addEventListener('click', (e) => {
 
     // Remove the task when delete button is clicked
@@ -143,96 +158,14 @@ document.addEventListener('click', (e) => {
     }
 
 
-
     //Edit the task and save to local storage
 
     const taskText = e.target.closest('.task-text')
-    const taskEdit = document.querySelector('.task-edit')
-
-    if(taskText && !(taskText.classList.contains('task-done'))) {
-
-        const existingEdit = taskSection.querySelector('.task-edit')
-
-        if(existingEdit){
-            const existingEditText = existingEdit.value
-            const taskTextContainer = existingEdit.closest('.task-text-container')
-            const taskContainer = existingEdit.closest('.task-container')
-
-            if(existingEditText.trim() === '') {
-                userData.forEach((data, index) => {
-                    if (data.Id === Number(taskContainer.dataset.id)) {
-                        userData.splice(index, 1)
-                    }
-                })
-                renderTasks()
-            } else {
-                taskTextContainer.innerHTML = `<span class="task-text">${existingEditText}</span>`
-                userData.forEach(data => {
-                    if(data.Id === Number(taskContainer.dataset.id)){
-                        data.text = existingEditText
-                    }
-                })
-            }
-
-            saveToLocalStorage()
-        }
-
-
-        const taskTextContainer = taskText.parentElement
-        taskTextContainer.innerHTML = `<textarea class="task-edit" rows="1"></textarea>`
-
-        const taskEdit = taskSection.querySelector('.task-edit')
-        taskEdit.value = taskText.textContent.trim()
-
-        taskEdit.focus()
-        taskEdit.setSelectionRange(taskEdit.value.length, taskEdit.value.length)
-
-        taskEdit.style.height = "auto"
-        taskEdit.style.height = (taskEdit.scrollHeight ) + 'px'
-
-        taskEdit.addEventListener("input", () => {
-            taskEdit.style.height = "auto"
-            taskEdit.style.height = (taskEdit.scrollHeight) + "px";
-        });
-
-        taskEdit.addEventListener('keydown', (e) => {
-            if(e.key === 'Enter'){
-                const newText = taskEdit.value
-                const taskTextContainer = taskEdit.closest('.task-text-container')
-                const taskCont = taskEdit.closest('.task-container')
-
-                if(taskEdit.value.trim() === '') {
-                        userData.forEach((data, index) => {
-                            if(data.Id === Number(taskCont.dataset.id)){
-                                userData.splice(index, 1)
-                            }
-                        })
-
-                    renderTasks()
-                    return
-                }
-
-                taskTextContainer.innerHTML = `
-                    <span class="task-text">
-                        ${newText}
-                    </span>
-                `
-
-                userData.forEach(data => {
-                    if(data.Id === Number(taskCont.dataset.id)){
-                        data.text = newText
-                    }
-                })
-                saveToLocalStorage()
-            }
-        })
-
-        return
-    }
+    const taskEdit = document.querySelector('.task-text:not([readonly])')
 
     if(taskEdit && !(taskEdit.contains(e.target))){
 
-        const newText = taskEdit.value
+        const newText = taskEdit.value.trim()
         const taskTextContainer = taskEdit.closest('.task-text-container')
         const taskCont = taskEdit.closest('.task-container')
 
@@ -247,11 +180,7 @@ document.addEventListener('click', (e) => {
             renderTasks()
         }
 
-        taskTextContainer.innerHTML = `
-            <span class="task-text">
-                ${newText}
-            </span>
-        `
+        taskTextContainer.innerHTML = `<textarea class="task-text" rows="1" readonly>${newText}</textarea>`
 
         userData.forEach(data => {
             if(data.Id === Number(taskCont.dataset.id)){
@@ -259,12 +188,55 @@ document.addEventListener('click', (e) => {
             }
         })
         saveToLocalStorage()
+        resizeTasks()
     }
 
 
-        
-    
-   
+    if(taskText && !(taskText.classList.contains('task-done'))) {
+       
+        const taskEdit = taskText
+        taskEdit.readOnly = false
+
+        taskEdit.style.height = "auto"
+        taskEdit.style.height = (taskEdit.scrollHeight ) + 'px'
+
+        taskEdit.addEventListener("input", () => {
+            taskEdit.style.height = "auto"
+            taskEdit.style.height = (taskEdit.scrollHeight) + "px";
+        });
+
+        taskEdit.addEventListener('keydown', (e) => {
+            if(e.key === 'Enter'){
+                const newText = taskEdit.value.trim()
+                const taskTextContainer = taskEdit.closest('.task-text-container')
+                const taskCont = taskEdit.closest('.task-container')
+
+                if(taskEdit.value.trim() === '') {
+                        userData.forEach((data, index) => {
+                            if(data.Id === Number(taskCont.dataset.id)){
+                                userData.splice(index, 1)
+                            }
+                        })
+
+                    renderTasks()
+                    return
+                }
+
+                taskTextContainer.innerHTML = `<textarea class="task-text" rows="1" readonly>${newText}</textarea>`
+
+                userData.forEach(data => {
+                    if(data.Id === Number(taskCont.dataset.id)){
+                        data.text = newText
+                    }
+                })
+                saveToLocalStorage()
+                resizeTasks()
+            }
+        })
+
+        return
+    }
+
 })
 
 taskSection.addEventListener('change', (e) => {
@@ -288,7 +260,6 @@ taskSection.addEventListener('change', (e) => {
     }
     saveToLocalStorage()
 })
-
 
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {

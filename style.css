@@ -183,9 +183,19 @@ main{
     width: 90%;
 }
 .task-text{
-    display: block;
     width: 100%;
     word-wrap: break-word;
+    resize: none;
+    height: text;
+    overflow: hidden;
+    font-size: inherit;
+    letter-spacing: -0.035rem;
+    word-spacing: -0.16rem;
+    background: none;
+    border: none;
+}
+.task-text:focus{
+    outline: none;
 }
 .task-edit{
     width: 100%;
