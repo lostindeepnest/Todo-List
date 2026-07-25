@@ -352,6 +352,7 @@ svg path{
 }
 .dark #task-section {
     background-color: #4B5F54;
+    border: 2px solid rgba(202, 227, 202, 0.481);
 }
 .dark .delete-btn path{
     stroke:#75c07c;
@@ -371,7 +372,7 @@ svg path{
     padding-bottom: 13px;
 }
 .dark .task-container:only-child{
-    border-bottom: 1px solid rgb(187, 211, 185);
+    border-bottom: 1px solid rgba(202, 227, 202, 0.585);
     padding-bottom: 13px;
     margin-bottom: 5px;
 }
@@ -389,4 +390,10 @@ svg path{
     border: 2px solid #f4a081f0;
     background-color: #fe8d77e1;
     color: rgba(255, 255, 255, 0.954);
+}
+.dark #dividing-line{
+    border: 2px dashed rgba(202, 227, 202, 0.481);
+}
+.dark main{
+    border: 2px solid rgba(202, 227, 202, 0.481);
 }

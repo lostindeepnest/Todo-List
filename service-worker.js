@@ -1,4 +1,4 @@
-const CACHE = "todo-v12";
+const CACHE = "todo-v13";
 
 const FILES = [
     "./",
