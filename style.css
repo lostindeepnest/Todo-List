@@ -79,7 +79,7 @@ main{
     background-color: rgba(133, 198, 145, 0.926);
     border-radius: 100%;
     box-shadow: 0px 0px 2px 0px rgb(98, 86, 86);
-    right:0;
+    right: 2px;
     top: 2px;
 }
 #theme-btn:hover{
@@ -313,15 +313,25 @@ svg path{
     }
     main{
         margin-top: 3vh;
-        width: 94%;
+        width: 93%;
+    }
+    #theme-btn{
+        width: 18px;
+        height: 18px;
+    }
+    #theme-btn::before{
+        right: 15px;
+    }
+    #theme-btn:hover:before{
+        display: none;
     }
 }
 
 
 :root.dark {
     --border-color: rgb(78, 90, 83);          
-    --body-background: rgb(21, 26, 23);       
-    --main-background: rgb(32, 39, 35);       
+    --body-background: rgba(21, 26, 23, 0.86);       
+    --main-background: rgba(39, 47, 44, 0.925);       
     --input-color: rgb(42, 50, 45);           
 
     --add-btn-color: rgb(117, 171, 123);      
@@ -396,4 +406,5 @@ svg path{
 }
 .dark main{
     border: 2px solid rgba(202, 227, 202, 0.481);
+    background-color: var(--main-background);
 }
