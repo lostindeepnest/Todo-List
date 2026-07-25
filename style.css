@@ -62,6 +62,7 @@ main{
 /* Top section */
 #top-section{
     display: flex;
+    position: relative;
     flex-direction: column;
     gap: 0.5rem;
 }
@@ -69,6 +70,44 @@ main{
     font-family: 'space-mono-italic-bold';
     font-size: 30px;
     margin-top: -10px;
+}
+#theme-btn{
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: none;
+    background-color: rgba(133, 198, 145, 0.926);
+    border-radius: 100%;
+    box-shadow: 0px 0px 2px 0px rgb(98, 86, 86);
+    right:0;
+    top: 2px;
+}
+#theme-btn:hover{
+    cursor: pointer;
+}
+#theme-btn::before{
+    content: 'change theme';
+    position: absolute;
+    width: 0px;
+    height: 15px;
+    border: 2px solid #7ab082;
+    background-color: #8bcb94da;
+    word-spacing: -0.2rem;
+    border-radius: 9999px;
+    right: 10px;
+    top: -1.5px;
+    transition: width 0.6s ease, right 0.2s ease;
+    overflow: hidden;
+    white-space: nowrap;
+    visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#theme-btn:hover:before{
+    visibility: visible;
+    right: 20px;
+    width: 100px;
 }
 #input-section{
     display: flex;
@@ -252,7 +291,7 @@ svg path{
     animation: svgAnimation 0.6s ease;
 }
 
-@keyframes svgAnimation {
+/* @keyframes svgAnimation {
     0%{
         transform: scale(1);
     }
@@ -265,7 +304,7 @@ svg path{
     100%{
         transform: scale(1);
     }
-}
+} */
 
 
 @media (max-width:499px){
@@ -276,4 +315,78 @@ svg path{
         margin-top: 3vh;
         width: 94%;
     }
+}
+
+
+:root.dark {
+    --border-color: rgb(78, 90, 83);          
+    --body-background: rgb(21, 26, 23);       
+    --main-background: rgb(32, 39, 35);       
+    --input-color: rgb(42, 50, 45);           
+
+    --add-btn-color: rgb(117, 171, 123);      
+    --add-btn-border-color: rgb(70, 118, 79);
+
+    --input-placeholder-color: rgb(170, 178, 172); 
+    --no-tasks-color: rgb(170, 178, 172);          
+
+    --text-color: rgb(242, 255, 236);    
+}
+
+.dark body{
+    background-color: var(--body-background);
+}
+
+.dark #add-task{
+    background-color: var(--add-btn-border-color);
+    border: 3px solid var(--add-btn-color);
+    color: rgba(242, 255, 236, 0.922);
+}
+.dark #task-input{
+    background-color: var(--input-color);
+    color: var(--text-color);
+    border: 2px solid rgba(199, 207, 196, 0.829);
+}
+.dark #task-input::placeholder{
+    color: rgba(211, 221, 206, 0.781);
+}
+.dark #task-section {
+    background-color: #4B5F54;
+}
+.dark .delete-btn path{
+    stroke:#75c07c;
+}
+.dark .task-checkbox{
+    border: 2px solid #75c07c;
+}
+.dark .task-checkbox:checked{
+    background-color: #75c07c;
+}
+.dark .task-text{
+    color: var(--text-color);
+}
+
+.dark .task-container:not(:last-child){
+    border-bottom: 1px solid rgba(202, 227, 202, 0.585);
+    padding-bottom: 13px;
+}
+.dark .task-container:only-child{
+    border-bottom: 1px solid rgb(187, 211, 185);
+    padding-bottom: 13px;
+    margin-bottom: 5px;
+}
+.dark #theme-btn{
+    background-color: #fe9884;
+    box-shadow: 0px 0px 2px 0px rgb(255, 255, 255);
+}
+.dark #date{
+    color:rgba(143, 209, 143, 0.868) ;
+}
+.dark .task-list-no-tasks{
+    color: var(--text-color);
+}
+.dark #theme-btn::before{
+    border: 2px solid #f4a081f0;
+    background-color: #fe8d77e1;
+    color: rgba(255, 255, 255, 0.954);
 }

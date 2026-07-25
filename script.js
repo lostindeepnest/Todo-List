@@ -7,10 +7,18 @@ const btn = document.querySelectorAll('.delete-btn')
 
 
 let userData = JSON.parse(localStorage.getItem(('taskData'))) || []
+let theme = JSON.parse(localStorage.getItem('theme')) || 'default'
 
 function saveToLocalStorage(){
     localStorage.setItem('taskData', JSON.stringify(userData))
 }
+function saveTheme(){
+    localStorage.setItem('theme', JSON.stringify(theme))
+}
+if(theme === 'dark' && !document.documentElement.classList.contains('dark')) {
+    document.documentElement.classList.add('dark')
+}
+
 
 function resizeTasks(){
     const allTasksText = document.querySelectorAll('.task-text')
@@ -42,7 +50,7 @@ function renderTasks(){
 
                 <input type="checkbox" class="task-checkbox" aria-label="task-checkbox" ${status}>
                 <div class='task-text-container'>
-                    <textarea class="task-text ${taskDone}" rows="1" readonly>${task.text}</textarea>
+                    <textarea class="task-text ${taskDone}" rows="1" readonly aria-label="to do task">${task.text}</textarea>
                 </div>
                 <button class="delete-btn" aria-label="delete-task">
                     <svg viewBox = "0 0 28 28">
@@ -110,6 +118,22 @@ topSection.addEventListener('click', (e) => {
 
         
         renderTasks()
+    }
+
+    //Theme
+
+    let themeBtn = e.target.closest('#theme-btn')
+
+    if(themeBtn) {
+        if(theme === 'default') {
+            document.documentElement.classList.add('dark')
+            theme = 'dark'
+            saveTheme()
+        } else {
+            document.documentElement.classList.remove('dark')
+            theme = 'default'
+            saveTheme()
+        }
     }
 
 })
@@ -180,7 +204,7 @@ document.addEventListener('click', (e) => {
             renderTasks()
         }
 
-        taskTextContainer.innerHTML = `<textarea class="task-text" rows="1" readonly>${newText}</textarea>`
+        taskTextContainer.innerHTML = `<textarea class="task-text" rows="1">${newText}</textarea>`
 
         userData.forEach(data => {
             if(data.Id === Number(taskCont.dataset.id)){
@@ -222,7 +246,7 @@ document.addEventListener('click', (e) => {
                     return
                 }
 
-                taskTextContainer.innerHTML = `<textarea class="task-text" rows="1" readonly>${newText}</textarea>`
+                taskTextContainer.innerHTML = `<textarea class="task-text" rows="1">${newText}</textarea>`
 
                 userData.forEach(data => {
                     if(data.Id === Number(taskCont.dataset.id)){
