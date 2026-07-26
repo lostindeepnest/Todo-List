@@ -4,6 +4,7 @@ const taskList = document.querySelector('#task-list')
 const taskSection = document.querySelector('#task-section')
 const taskCheckbox = document.querySelectorAll('.task-checkbox')
 const btn = document.querySelectorAll('.delete-btn')
+const themeColor = document.querySelector('meta[name="theme-color"]');
 
 
 let userData = JSON.parse(localStorage.getItem(('taskData'))) || []
