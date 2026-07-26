@@ -17,6 +17,7 @@ function saveTheme(){
 }
 if(theme === 'dark' && !document.documentElement.classList.contains('dark')) {
     document.documentElement.classList.add('dark')
+    themeColor.setAttribute("content", "#1a1f1c");
 }
 
 
@@ -127,10 +128,12 @@ topSection.addEventListener('click', (e) => {
     if(themeBtn) {
         if(theme === 'default') {
             document.documentElement.classList.add('dark')
+            themeColor.setAttribute("content", "#1a1f1c");
             theme = 'dark'
             saveTheme()
         } else {
             document.documentElement.classList.remove('dark')
+            themeColor.setAttribute("content", "#f5f0e8");
             theme = 'default'
             saveTheme()
         }
